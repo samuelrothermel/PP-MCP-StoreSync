@@ -1,8 +1,8 @@
-const express = require('express');
-const { v4: uuidv4 } = require('uuid');
-const { verifyPayPalToken } = require('../middleware/auth');
-const { createOrder, patchOrder, captureOrder } = require('../services/paypal');
-const { getCatalogMap } = require('../services/catalog');
+import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
+import { verifyPayPalToken } from '../middleware/auth.js';
+import { createOrder, patchOrder, captureOrder } from '../services/paypal.js';
+import { getCatalogMap } from '../services/catalog.js';
 
 const router = express.Router();
 
@@ -99,7 +99,6 @@ router.post('/merchant-cart', verifyPayPalToken, async (req, res) => {
     const totals = calculateTotals(enrichedItems);
     const { status, validation_status } = buildCartStatus(validationIssues, !!shipping_address);
 
-    // Create a PayPal Orders v2 order to obtain the payment token
     const cartForOrder = { items: enrichedItems, totals, shipping_address };
     const paypalOrder = await createOrder(cartForOrder);
 
@@ -220,4 +219,4 @@ router.post('/merchant-cart/:id/checkout', verifyPayPalToken, async (req, res) =
   }
 });
 
-module.exports = router;
+export default router;

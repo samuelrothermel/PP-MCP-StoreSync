@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const jwksClient = require('jwks-rsa');
+import jwt from 'jsonwebtoken';
+import jwksClient from 'jwks-rsa';
 
 const PAYPAL_JWKS_SANDBOX = 'https://api.sandbox.paypal.com/v1/oauth2/certs';
 const PAYPAL_JWKS_PRODUCTION = 'https://api.paypal.com/v1/oauth2/certs';
@@ -29,7 +29,7 @@ function getKey(header, callback) {
  * Otherwise, invalid tokens are logged and the request continues — useful
  * during early sandbox testing before PayPal has fully provisioned your merchant.
  */
-function verifyPayPalToken(req, res, next) {
+export function verifyPayPalToken(req, res, next) {
   const authHeader = req.headers['authorization'];
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -54,5 +54,3 @@ function verifyPayPalToken(req, res, next) {
     next();
   });
 }
-
-module.exports = { verifyPayPalToken };

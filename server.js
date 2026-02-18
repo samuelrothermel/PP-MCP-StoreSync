@@ -1,8 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
-const { loadCatalog } = require('./services/catalog');
-const cartRoutes = require('./routes/cart');
+import 'dotenv/config';
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { loadCatalog } from './services/catalog.js';
+import cartRoutes from './routes/cart.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;

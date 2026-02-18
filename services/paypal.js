@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const BASE_URL =
   process.env.PAYPAL_ENVIRONMENT === 'PRODUCTION'
@@ -67,7 +67,7 @@ function buildPurchaseUnit(cart) {
   };
 }
 
-async function createOrder(cart) {
+export async function createOrder(cart) {
   const token = await getAccessToken();
   const resp = await axios.post(
     `${BASE_URL}/v2/orders`,
@@ -81,7 +81,7 @@ async function createOrder(cart) {
   return resp.data;
 }
 
-async function patchOrder(orderId, cart) {
+export async function patchOrder(orderId, cart) {
   const token = await getAccessToken();
   await axios.patch(
     `${BASE_URL}/v2/orders/${orderId}`,
@@ -104,7 +104,7 @@ async function patchOrder(orderId, cart) {
   );
 }
 
-async function captureOrder(orderId) {
+export async function captureOrder(orderId) {
   const token = await getAccessToken();
   const resp = await axios.post(
     `${BASE_URL}/v2/orders/${orderId}/capture`,
@@ -113,5 +113,3 @@ async function captureOrder(orderId) {
   );
   return resp.data;
 }
-
-module.exports = { createOrder, patchOrder, captureOrder };

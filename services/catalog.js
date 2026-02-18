@@ -1,5 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let catalogMap = null;
 
@@ -7,7 +11,7 @@ let catalogMap = null;
  * Loads product_catalog.csv into a Map keyed by variant id.
  * Called once at server startup.
  */
-function loadCatalog() {
+export function loadCatalog() {
   const csvPath = path.join(__dirname, '..', 'product_catalog.csv');
   const lines = fs.readFileSync(csvPath, 'utf8').split('\n').filter(Boolean);
 
@@ -35,13 +39,11 @@ function loadCatalog() {
   return catalogMap;
 }
 
-function getCatalogMap() {
+export function getCatalogMap() {
   if (!catalogMap) loadCatalog();
   return catalogMap;
 }
 
-function getCatalogArray() {
+export function getCatalogArray() {
   return Array.from(getCatalogMap().values());
 }
-
-module.exports = { loadCatalog, getCatalogMap, getCatalogArray };

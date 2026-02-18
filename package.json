@@ -2,6 +2,7 @@
   "name": "pp-mcp-storesync",
   "version": "1.0.0",
   "description": "PayPal Store Sync merchant API — product catalog serving and agentic cart/checkout endpoints",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
