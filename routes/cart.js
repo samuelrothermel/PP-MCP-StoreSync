@@ -207,7 +207,7 @@ router.post('/merchant-cart/:id/checkout', verifyPayPalToken, async (req, res) =
         merchant_order_number: orderId,
         paypal_order_id: captureResult.id,
         paypal_status: captureResult.status,
-        order_review_page: `${process.env.STORE_URL || 'https://www.pp-store-sync.railway.app'}/orders/${orderId}`,
+        order_review_page: `${process.env.STORE_URL || 'https://pp-store-sync.up.railway.app'}/orders/${orderId}`,
       },
       completed_at: new Date().toISOString(),
     };

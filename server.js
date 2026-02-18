@@ -12,7 +12,7 @@ app.use(express.json());
 // ─── Product Catalog ─────────────────────────────────────────────────────────
 // PayPal Store Sync fetches this URL as the catalog source.
 // Configure Store Sync with:
-//   Source URL : https://www.pp-store-sync.railway.app/catalog/product_catalog.csv
+//   Source URL : https://pp-store-sync.up.railway.app/catalog/product_catalog.csv
 //   File format: CSV
 app.get('/catalog/product_catalog.csv', (req, res) => {
   res.setHeader('Content-Type', 'text/csv');
