@@ -1,5 +1,5 @@
 import express from 'express';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 import { verifyPayPalToken } from '../middleware/auth.js';
 import { createOrder, patchOrder, captureOrder } from '../services/paypal.js';
 import { getCatalogMap } from '../services/catalog.js';
@@ -103,7 +103,7 @@ router.post('/merchant-cart', verifyPayPalToken, async (req, res) => {
     const paypalOrder = await createOrder(cartForOrder);
 
     const cart = {
-      id: `CART-${uuidv4().toUpperCase().slice(0, 8)}`,
+      id: `CART-${randomUUID().toUpperCase().slice(0, 8)}`,
       status,
       validation_status,
       validation_issues: validationIssues,
@@ -196,7 +196,7 @@ router.post('/merchant-cart/:id/checkout', verifyPayPalToken, async (req, res) =
 
     const captureResult = await captureOrder(cart.paypal_order_id);
 
-    const orderId = `ORDER-${uuidv4().toUpperCase().slice(0, 8)}`;
+    const orderId = `ORDER-${randomUUID().toUpperCase().slice(0, 8)}`;
     const completed = {
       ...cart,
       status: 'COMPLETED',
